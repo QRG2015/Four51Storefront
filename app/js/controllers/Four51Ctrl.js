@@ -1,5 +1,5 @@
-four51.app.controller('Four51Ctrl', ['$scope', '$route', '$location', '$451', 'User', 'Order', 'Security', 'OrderConfig', 'Category', 'AppConst','XLATService', 'GoogleAnalytics',
-function ($scope, $route, $location, $451, User, Order, Security, OrderConfig, Category, AppConst, XLATService, GoogleAnalytics) {
+four51.app.controller('Four51Ctrl', ['$scope', '$route', '$location', '$451', 'User', 'Order', 'Security', 'OrderConfig', 'Category', 'AppConst','XLATService', 'GoogleAnalytics', 'SpendingAccount',
+function ($scope, $route, $location, $451, User, Order, Security, OrderConfig, Category, AppConst, XLATService, GoogleAnalytics, SpendingAccount) {
 	$scope.AppConst = AppConst;
 	$scope.scroll = 0;
 	$scope.isAnon = $451.isAnon; //need to know this before we have access to the user object
@@ -27,7 +27,10 @@ function ($scope, $route, $location, $451, User, Order, Security, OrderConfig, C
 				$scope.user = user;
                 $scope.user.Culture.CurrencyPrefix = XLATService.getCurrentLanguage(user.CultureUI, user.Culture.Name)[1];
                 $scope.user.Culture.DateFormat = XLATService.getCurrentLanguage(user.CultureUI, user.Culture.Name)[2];
-
+			//add spending account and only show if balance is greater than $0.00
+   SpendingAccount.query(function(data) {
+         $scope.SpendingAccounts = data;
+});
 	            if (!$scope.user.TermsAccepted)
 		            $location.path('conditions');
 
@@ -49,6 +52,7 @@ function ($scope, $route, $location, $451, User, Order, Security, OrderConfig, C
 				$scope.tree = data;
 				$scope.$broadcast("treeComplete", data);
 			});
+
 		}
 	}
 
