@@ -86,19 +86,18 @@
                          
                     </li>
                 </ul>
-                <ul class="nav navbar-nav pull-right">
-                    <li class="cart" ng-class="{'active': isActive(['cart', 'checkout'])}">
-                        <a id="451qa_cart_link" ng-show="(cartCount && cartCount > 0) && user.CurrentOrderID" class="cart" href="cart">
-                            <span ng-bind="cartCount" class="badge"></span>
-                            <i class="fa fa-shopping-cart"></i>
-                            <i class="fa fa-caret-down"></i>
-                        </a>
+                 <ul class="nav navbar-nav pull-right">
+                    <li class="hidden-xs hidden-sm spending-account" ng-show="SpendingAccounts[0].Balance > 0">
+                        <span>Balance</span><br />{{(SpendingAccounts[0].Balance | currency) || (0 | currency)}}
                     </li>
-                    <ul style="float:right;margin-right:15px;">
+                    <li>
+                        <minicart></minicart>
+                    </li>
+                </ul>
+                <ul style="float:right;margin-right:15px;">
                     <li>
                         <productsearchinput></productsearchinput>
                     </li>
-                </ul>
                 </ul>
             </div>
         </section>
